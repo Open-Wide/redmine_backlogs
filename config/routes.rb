@@ -97,11 +97,6 @@ def rb_common_routes(rb)
   rb_match rb, 'burndown/:sprint_id/embed',   :to => 'rb_burndown_charts#embedded'
   rb_match rb, 'burndown/:sprint_id/print',   :to => 'rb_burndown_charts#print'
 
-  rb_match rb, 'hooks/sidebar/project/:project_id',
-          :to => 'rb_hooks_render#view_issues_sidebar'
-  rb_match rb, 'hooks/sidebar/project/:project_id/:sprint_id',
-          :to => 'rb_hooks_render#view_issues_sidebar'
-
   rb_match rb, 'project/:project_id/backlogs', :to => 'rb_project_settings#project_settings'
 end
 

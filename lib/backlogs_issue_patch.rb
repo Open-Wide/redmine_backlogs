@@ -34,9 +34,9 @@ module Backlogs
     end
 
     module InstanceMethods
-      def history
-        @history ||= RbIssueHistory.find_or_create_by_issue_id(self.id)
-      end
+#      def history
+#        @history ||= RbIssueHistory.find_or_create_by_issue_id(self.id)
+#      end
 
       def release_burnchart_day_caches(release_id)
         RbReleaseBurnchartDayCache.where(:issue_id => self.id, :release_id => release_id)
@@ -150,17 +150,17 @@ module Backlogs
       end
 
       def backlogs_after_save
-        self.history.save!
+#        self.history.save!
         self.invalidate_release_burnchart_data
 
-        [self.parent_id, self.parent_id_was].compact.uniq.each{|pid|
-          p = Issue.find(pid)
-          r = p.leaves.sum("COALESCE(remaining_hours, 0)").to_f
-          if r != p.remaining_hours
-            p.update_attribute(:remaining_hours, r)
-            p.history.save
-          end
-        }
+#        [self.parent_id, self.parent_id_was].compact.uniq.each{|pid|
+#          p = Issue.find(pid)
+#          r = p.leaves.sum("COALESCE(remaining_hours, 0)").to_f
+#          if r != p.remaining_hours
+#            p.update_attribute(:remaining_hours, r)
+#            p.history.save
+#          end
+#        }
 
         return unless Backlogs.configured?(self.project)
 
@@ -181,7 +181,7 @@ module Backlogs
               self.fixed_version_id, self.fixed_version_id,
               self.fixed_version_id, self.fixed_version_id,
               RbTask.tracker]).to_a
-          tasklist.each{|task| task.history.save! }
+#          tasklist.each{|task| task.history.save! }
           if tasklist.size > 0
             task_ids = '(' + tasklist.collect{|task| connection.quote(task.id)}.join(',') + ')'
             connection.execute("update issues set

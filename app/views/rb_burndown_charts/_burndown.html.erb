@@ -10,8 +10,8 @@ Sprints days are captured using server time zone: <%= RbIssueHistory.burndown_ti
 A Sprint day in your time zone <%= zone %> is from <%= t1.strftime("%T") %> to <%= t2.strftime("%T") %><br>
 </div>
 <% end %>
-<script type="text/javascript" language="javascript">
-  <%-
+<%#*<script type="text/javascript" language="javascript">%>
+  <%#-
       burndown = sprint.burndown
       series = burndown.series.sort{|a, b| l("label_#{a}") <=> l("label_#{b}") }
       dates = sprint.days
@@ -52,11 +52,11 @@ A Sprint day in your time zone <%= zone %> is from <%= t1.strftime("%T") %> to <
           :highlighter => { :bringSeriesToFront => true, :tooltipAxes => 'y', :formatString => '%s', :show => true }
         }
       }
-  %>
-  RB.burndown.charts[<%= sprint.id %>] = <%= chart.to_json.html_safe %>;
-  // RB.burndown.charts[<%= sprint.id %>].options.axesDefaults.tickRenderer = RB.$.jqplot.CanvasAxisTickRenderer;
-  RB.burndown.charts[<%= sprint.id %>].options.axes.xaxis.tickRenderer = RB.$.jqplot.CanvasAxisTickRenderer;
-  RB.burndown.charts[<%= sprint.id %>].options.axes.yaxis.labelRenderer = RB.$.jqplot.CanvasAxisLabelRenderer;
-  RB.burndown.charts[<%= sprint.id %>].options.axes.y2axis.labelRenderer = RB.$.jqplot.CanvasAxisLabelRenderer;
-  RB.burndown.initialize();
-</script>
+  %>#
+  <%#*RB.burndown.charts[<%= sprint.id %>] = <%= chart.to_json.html_safe %>;%>
+  <%#*// RB.burndown.charts[<%= sprint.id %>].options.axesDefaults.tickRenderer = RB.$.jqplot.CanvasAxisTickRenderer;%>
+  <%#*RB.burndown.charts[<%= sprint.id %>].options.axes.xaxis.tickRenderer = RB.$.jqplot.CanvasAxisTickRenderer;%>
+  <%#*RB.burndown.charts[<%= sprint.id %>].options.axes.yaxis.labelRenderer = RB.$.jqplot.CanvasAxisLabelRenderer;%>
+  <%#*RB.burndown.charts[<%= sprint.id %>].options.axes.y2axis.labelRenderer = RB.$.jqplot.CanvasAxisLabelRenderer;%>
+  <%#*RB.burndown.initialize();%>
+<%#*</script>%>

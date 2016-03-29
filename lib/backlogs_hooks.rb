@@ -28,58 +28,6 @@ module BacklogsPlugin
         end
       end
 
-      def view_issues_sidebar_planning_bottom(context={ })
-        begin
-          return '' if User.current.anonymous?
-
-          project = context[:project]
-
-          return '' unless project && !project.blank?
-          return '' unless Backlogs.configured?(project)
-
-          sprint_id = nil
-
-          params = context[:controller].params
-          case "#{params['controller']}##{params['action']}"
-            when 'issues#show'
-              if params['id'] && (issue = Issue.find(params['id'])) && (issue.is_task? || issue.is_story?) && issue.fixed_version
-                sprint_id = issue.fixed_version_id
-              end
-
-            when 'issues#index'
-              q = context[:request].session[:query]
-              sprint = (q && q[:filters]) ? q[:filters]['fixed_version_id'] : nil
-              if sprint && sprint[:operator] == '=' && sprint[:values].size == 1
-                sprint_id = sprint[:values][0]
-              end
-          end
-
-          url_options = {
-            :only_path  => true,
-            :controller => :rb_hooks_render,
-            :action     => :view_issues_sidebar,
-            :project_id => project.identifier
-          }
-          url_options[:sprint_id] = sprint_id if sprint_id
-          url = url_for_prefix_in_hooks
-          url += url_for(url_options)
-
-          # Why can't I access protect_against_forgery?
-          return %{
-            <div id="backlogs_view_issues_sidebar"></div>
-            <script type="text/javascript">
-              var $j = RB.$ || $;
-              $j(function($) {
-                $('#backlogs_view_issues_sidebar').load('#{url}');
-              });
-            </script>
-          }
-        rescue => e
-          exception(context, e)
-          return ''
-        end
-      end
-
       def view_issues_show_details_bottom(context={ })
         begin
           issue = context[:issue]

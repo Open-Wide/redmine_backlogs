@@ -2,9 +2,6 @@
 RB.$(function() {  
   var board = RB.Factory.initialize(RB.Taskboard, RB.$('#taskboard'));
   RB.TaskboardUpdater.start();
-
-  // Capture 'click' instead of 'mouseup' so we can preventDefault();
-  RB.$('#show_charts').bind('click', RB.showCharts);
   
   RB.$('#assigned_to_id_options').bind('change', function(){
     c = RB.$(this).children(':selected').attr('color');

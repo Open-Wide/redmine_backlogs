@@ -366,25 +366,25 @@ class RbStory < Issue
     return false
   end
 
-  def burndown(sprint = nil, status=nil)
-    return nil unless self.is_story?
-    sprint ||= self.fixed_version.becomes(RbSprint) if self.fixed_version
-    return nil if sprint.nil? || !sprint.has_burndown?
-
-    bd = {:points_committed => [], :points_accepted => [], :points_resolved => [], :hours_remaining => []}
-
-    self.history.filter(sprint, status).each{|d|
-      if d.nil? || d[:sprint] != sprint.id || d[:tracker] != :story
-        [:points_committed, :points_accepted, :points_resolved, :hours_remaining].each{|k| bd[k] << nil}
-      else
-        bd[:points_committed] << d[:story_points]
-        bd[:points_accepted] << (d[:status_success] ? d[:story_points] : 0)
-        bd[:points_resolved] << (d[:status_success] || d[:hours].to_f == 0.0 ? d[:story_points] : 0)
-        bd[:hours_remaining] << (d[:status_closed] ? 0 : d[:hours])
-      end
-    }
-    return bd
-  end
+#  def burndown(sprint = nil, status=nil)
+#    return nil unless self.is_story?
+#    sprint ||= self.fixed_version.becomes(RbSprint) if self.fixed_version
+#    return nil if sprint.nil? || !sprint.has_burndown?
+#
+#    bd = {:points_committed => [], :points_accepted => [], :points_resolved => [], :hours_remaining => []}
+#
+#    self.history.filter(sprint, status).each{|d|
+#      if d.nil? || d[:sprint] != sprint.id || d[:tracker] != :story
+#        [:points_committed, :points_accepted, :points_resolved, :hours_remaining].each{|k| bd[k] << nil}
+#      else
+#        bd[:points_committed] << d[:story_points]
+#        bd[:points_accepted] << (d[:status_success] ? d[:story_points] : 0)
+#        bd[:points_resolved] << (d[:status_success] || d[:hours].to_f == 0.0 ? d[:story_points] : 0)
+#        bd[:hours_remaining] << (d[:status_closed] ? 0 : d[:hours])
+#      end
+#    }
+#    return bd
+#  end
 
   def list_with_gaps_scope_condition(options={})
     return options if self.new_record?

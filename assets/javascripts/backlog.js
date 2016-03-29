@@ -129,8 +129,6 @@ RB.Backlog = RB.Object.create({
         if (RB.permissions.create_sprints) {
           menu.find('.add_new_sprint').bind('mouseup', self.handleNewSprintClick);
         }
-        // capture 'click' instead of 'mouseup' so we can preventDefault();
-        menu.find('.show_burndown_chart').bind('click', function(ev){ self.showBurndownChart(ev); });
       }
     });
   },

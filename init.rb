@@ -81,7 +81,6 @@ Redmine::Plugin.register :redmine_backlogs do
     permission :view_master_backlog,  {
                                         :rb_master_backlogs  => [:show, :menu, :closed_sprints],
                                         :rb_sprints          => [:index, :show, :download],
-                                        :rb_hooks_render     => [:view_issues_sidebar],
                                         :rb_wikis            => :show,
                                         :rb_stories          => [:index, :show, :tooltip],
                                         :rb_queries          => [:show, :impediments],
@@ -108,7 +107,6 @@ Redmine::Plugin.register :redmine_backlogs do
                                         :rb_impediments      => [:index, :show],
                                         :rb_wikis            => :show,
                                         :rb_server_variables => [:project, :sprint, :index],
-                                        :rb_hooks_render     => [:view_issues_sidebar],
                                         :rb_burndown_charts  => [:embedded, :show, :print],
                                         :rb_updated_items    => :show
                                       }
